@@ -1,0 +1,41 @@
+<% content_for :title, "Products" %>
+
+<% if notice.present? %>
+  <div class="flash-notice" role="status">
+    <span class="dot"></span>
+    <span><%= notice %></span>
+  </div>
+<% end %>
+
+<section class="page">
+  <header class="page-header">
+    <div>
+      <h1 class="page-title">Products</h1>
+      <p class="page-subtitle">Browse all products and manage your inventory.</p>
+    </div>
+
+    <%= link_to "＋ New product", new_product_path, class: "btn btn-primary" %>
+  </header>
+
+  <div id="products" class="grid">
+    <% @products.each do |product| %>
+      <article class="card">
+        <div class="card-body">
+          <%= render product %>
+        </div>
+
+        <div class="card-footer">
+          <%= link_to "Show", product, class: "btn btn-ghost" %>
+        </div>
+      </article>
+    <% end %>
+  </div>
+
+  <% if @products.blank? %>
+    <div class="empty">
+      <h3>No products yet</h3>
+      <p>Create your first product to see it listed here.</p>
+      <%= link_to "Create product", new_product_path, class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</section>
