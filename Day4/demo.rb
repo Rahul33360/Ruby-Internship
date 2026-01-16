@@ -65,6 +65,7 @@ puts "local -> #{obj2.local}"
 
 # using getter and setter also we can create the instance variable 
 
+=begin 
 class Demo2
     def set_name(name) 
         @name = name    # instance variable created here
@@ -79,4 +80,23 @@ obj4 = Demo2.new
 p obj4.declair      # nil
 obj4.set_name("Rahul")
 p obj4.declair      # "Rahul"
+=end
+
+class Example
+    def initialize        
+        @var1 = "a"
+        @var2 = 1
+        @var3 = true
+        @var4 = :symbol
+    end
+    def display
+        puts @var1.class
+        puts @var2.class
+        puts @var3.class
+        puts @var4.class
+    end
+end
+
+obj5 = Example.new
+obj5.display
 
