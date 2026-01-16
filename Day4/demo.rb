@@ -82,6 +82,7 @@ obj4.set_name("Rahul")
 p obj4.declair      # "Rahul"
 =end
 
+
 class Example
     def initialize        
         @var1 = "a"

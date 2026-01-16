@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :product1s
   resources :products
   resources :students
   resources :customers
