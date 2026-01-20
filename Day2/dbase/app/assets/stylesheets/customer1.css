@@ -1,0 +1,104 @@
+/* customer1s.css - cleaner UI */
+
+body {
+  background: #f6f7fb;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  color: #111827;
+}
+
+.notice {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-weight: 600;
+  margin: 10px 0 14px;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 14px;
+}
+
+.customer1s-list {
+  max-width: 720px;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.customer1-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 14px 14px 12px;
+  box-shadow: 0 8px 20px rgba(17, 24, 39, 0.06);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.customer1-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(17, 24, 39, 0.10);
+  border-color: #d1d5db;
+}
+
+.customer1-card p {
+  margin: 8px 0;
+  color: #374151;
+}
+
+.customer1-actions {
+  margin-top: 10px;
+}
+
+.customer1-link {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: #111827;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 700;
+  transition: filter 0.15s ease, transform 0.05s ease;
+}
+
+.customer1-link:hover {
+  filter: brightness(1.1);
+}
+
+.customer1-link:active {
+  transform: translateY(1px);
+}
+
+.new-customer1-link {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: #2563eb;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 800;
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.18);
+  transition: filter 0.15s ease, transform 0.05s ease;
+}
+
+.new-customer1-link:hover {
+  filter: brightness(1.08);
+}
+
+.new-customer1-link:active {
+  transform: translateY(1px);
+}
+
+/* Optional: make page content not stick to edges */
+#customer1s,
+.page-title,
+.notice,
+.new-customer1-link {
+  margin-left: 12px;
+  margin-right: 12px;
+}

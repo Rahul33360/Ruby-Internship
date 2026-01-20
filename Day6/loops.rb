@@ -47,13 +47,11 @@ end
 
 puts
 
-# ye wala samjh me nhi aya
-
-for i in 1..10 
-    print "#{i}, "
-    redo if i>5
-    # break
-    # next if i>10
+for i in 1..3
+  puts "start i=#{i}"
+  i+=1
+  redo if i <= 2
+  puts "end   i=#{i}"
 end
 
 

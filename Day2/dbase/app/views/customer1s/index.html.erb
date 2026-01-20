@@ -1,0 +1,18 @@
+<p style="color: green" class="notice"><%= notice %></p>
+
+<% content_for :title, "Customer1s" %>
+
+<h1 class="page-title">Customer1s</h1>
+
+<div id="customer1s" class="customer1s-list">
+  <% @customer1s.each do |customer1| %>
+    <div class="customer1-card">
+      <%= render customer1 %>
+      <p class="customer1-actions">
+        <%= link_to "Show this customer1", customer1, class: "customer1-link" %>
+      </p>
+    </div>
+  <% end %>
+</div>
+
+<%= link_to "New customer1", new_customer1_path, class: "new-customer1-link" %>
