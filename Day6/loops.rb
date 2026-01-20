@@ -55,3 +55,10 @@ for i in 1..3
 end
 
 
+begin           #try
+  puts "haa"
+  raise "cs"    #throw
+  puts "haa2"
+rescue => e     #catch
+  puts "#{e.message}here"
+end
