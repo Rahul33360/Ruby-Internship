@@ -23,7 +23,7 @@ puts 3.respond_to?(:upcase)
 
 # obj.puts
 
-
+=begin 
 class Parent
     def initialize(fname)
         @fname = fname
@@ -43,7 +43,7 @@ end
 
 obj2 = NewChild.new("rahul","kumar")
 puts obj2.display
-
+ =end
 
 
 
@@ -65,4 +65,13 @@ objc = C1.new
 objc.sample(4,3)
 =end
 
+puts "++++++"
+class A
+end
+
+puts A.superclass
+puts A.superclass.superclass
+puts "-------"
+puts A.ancestors
+# puts Object.included_modules
 
