@@ -1,12 +1,97 @@
 class Product1 < ApplicationRecord
+    # do not allow special characters
+    # validates :descripition, format: { without: /[<>&*$#]/, message: "cannot contain special characters like <, >, &, *, $, or #" }
+    # or 
+    # validates :descripition , format: { with: /\A[a-zA-Z0-9 ]+\z/ , message: "cannot contain special characters like <, >, &, *, $, or #" }
+    # or
+    # using custom validation
+    validate :nospecialchars
     
+    def nospecialchars
+        return if descripition.blank?
+        if descripition.match?(/[<>&*$#]/)
+            errors.add "cannot contain special characters like <, >, &, *, $, or #"
+        end
+    end
+    
+    # use inbuild validation and check absent, use acceptance method
+    # active pending 
+    validates :is_active, acceptance: true
+
+
+
+
+
+
+    # custom validation do alphanumeric
+    validate :name_alphanuumeric
+    
+    def name_alphanuumeric
+        return if name.blank?
+        unless name.match?(/\A[a-zA-Z0-9 ]+\z/)
+            errors.add "only letters and numbers allowed and spaces"
+        end
+    end
+
+    # if product is inactive (not marked checked) then we don't add the price only
+    validate :only_price
+
+    def only_price
+        if is_active == false
+            if price > 0
+            # if name.present? || descripition.present? || stock.present?
+            errors.add "When product is inactive, add price only"
+            end
+        end
+    end
+
+    # if is_active = true then only able to add stock
+    validate :add_stock
+
+    def add_stock
+        if is_active == false && stock.present?
+            error.add "first mark the is_active checked then stock can be added."
+        end
+    end
+
+
+
+
+
+
+
+
+
+
+    
+=begin 
+    validates :name, format: { with: /\A[a-zA-Z]+\z/, message: "Only letters are allowed" }
+    validates :stock, numericality: true
+    validates :price, numericality: true
+    # validates :price, numericality: { greater_than_or_equal_to: 3}
+    validates :descripition, length: { maximum: 500 }
+
+    # this is custom validation 
+    validate :check_avaliability
+
+    def check_avaliability
+        if stock == 0 && price >= 0
+            errors.add "Enter the stock"
+        end
+    end 
+=end
+
+=begin     
     def check_avaliability
         # check for stock value more than 0
         # Product1.stock.select{|i| i > 0}
-        if stock > 0
-            return true 
-        else
-            return false
+        # if stock > 0
+        #     return true 
+        # else
+        #     return false
+        stock.to_i > 0
+        # or
+        # stock>0? true: false
     end
     def apply_discount(amount)
         # apply discount using case statements
@@ -31,7 +116,7 @@ class Product1 < ApplicationRecord
             total_amout -= dis 
         # use any math method like round to roundoff the amount.
     end
-
+=end
 
     
     # pluck helps us to get the specific column and we need to pass it as symbol.

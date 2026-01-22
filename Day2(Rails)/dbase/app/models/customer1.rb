@@ -1,5 +1,15 @@
 class Customer1 < ApplicationRecord
-   def check_email
+
+
+    validates :name , moderate: true
+    validates :email, moderate: true
+
+
+
+
+
+=begin 
+    def check_email
         # check email present or not
         if @user.email.present?
             p "Present"
@@ -13,5 +23,5 @@ class Customer1 < ApplicationRecord
         else
             p "end"
     end
-
+=end
 end

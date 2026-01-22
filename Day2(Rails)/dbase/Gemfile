@@ -67,3 +67,7 @@ end
 
 #newly added gems my me
 gem "faker"
+
+#for profanity gems name
+gem 'moderate'
+gem 'obscenity'

@@ -12,6 +12,31 @@ p Str.ancestors
 p s.respond_to?(:capitalize)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class B 
     #  from Object class 
     def display

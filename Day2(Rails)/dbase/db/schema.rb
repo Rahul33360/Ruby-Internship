@@ -16,18 +16,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_19_104508) do
 
   create_table "customer1s", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.string "email"
-    t.string "name"
+    t.string "email"  # use profanity: true
+    t.string "name"   # use profanity: true
     t.datetime "updated_at", null: false
   end
 
   create_table "product1s", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.text "descripition"
-    t.boolean "is_active"
-    t.string "name"
-    t.decimal "price"
-    t.integer "stock"
+    t.text "descripition" # do not allow special characters
+    t.boolean "is_active" # use inbuild validation and check absent, use acceptance method
+    t.string "name"     # custom validation do alphanumeric
+    t.decimal "price"   # if product is inactive then add price only
+    t.integer "stock"   # if is_active = true then only able to add stock  
     t.datetime "updated_at", null: false
   end
 
