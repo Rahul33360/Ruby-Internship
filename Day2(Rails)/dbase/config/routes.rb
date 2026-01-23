@@ -1,6 +1,20 @@
 Rails.application.routes.draw do
-  resources :customer1s
-  resources :product1s
+  # resources :customer1s
+  # resources :product1s 
+
+  resources :product1s do
+    collection do
+      get "out_of_stock"
+    end
+  end
+
+  resources :customer1s do
+    collection do
+      get "blacklisted_customers"
+    end
+  end
+
+
   resources :products
   resources :students
   resources :customers

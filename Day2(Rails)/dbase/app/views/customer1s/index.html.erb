@@ -5,6 +5,8 @@
 <h1 class="page-title">Customer1s</h1>
 
 <div id="customer1s" class="customer1s-list">
+<% #= @customer1s.unique_email %>
+  <% # @customer1s = @customer1s.blacklisted_customers([1,2]) %>
   <% @customer1s.each do |customer1| %>
     <div class="customer1-card">
       <%= render customer1 %>

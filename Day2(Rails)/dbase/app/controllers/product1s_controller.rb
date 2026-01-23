@@ -4,6 +4,13 @@ class Product1sController < ApplicationController
   # GET /product1s or /product1s.json
   def index
     @product1s = Product1.all
+    
+    # @product1s = Product1.out_of_stock
+  end
+
+  def out_of_stock
+    # @product1s = Product1.where("stock <= ?", 0)  # not a good practice
+    @product1s = Product1.out_of_stock
   end
 
   # GET /product1s/1 or /product1s/1.json

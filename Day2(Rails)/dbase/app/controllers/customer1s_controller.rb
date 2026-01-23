@@ -3,7 +3,17 @@ class Customer1sController < ApplicationController
 
   # GET /customer1s or /customer1s.json
   def index
+    # list_of_customers = [1,2,3]
+    # @customer1s = Customer1.blacklisted_customers(list_of_customers)
     @customer1s = Customer1.all
+    # @customer1s = Customer1.unique_email
+  end
+
+  def blacklisted_customers
+    #  list_of_customers = [1,2]  # but not gud practice
+    #  @customer1s = Customer1.where(id: list_of_customers) # but not gud practice
+    list_of_customers = [1,2,3]
+    @customer1s = Customer1.blacklisted_customers(list_of_customers)
   end
 
   # GET /customer1s/1 or /customer1s/1.json

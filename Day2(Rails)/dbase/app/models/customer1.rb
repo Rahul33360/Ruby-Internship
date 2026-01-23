@@ -4,9 +4,11 @@ class Customer1 < ApplicationRecord
     validates :name , moderate: true
     validates :email, moderate: true
 
+    # non-parameterised scope.
+    # scope :unique_email, -> {where(email: "rahul@grmail.com").pluck(:email)}   # first email is table column name, second one is object attribute model name (tableColumn: ObjectAttribute) 
 
-
-
+    # parameterised scope. This is the parameter here -> "(customer_ids)"  
+    scope :blacklisted_customers, ->(customer_ids) { where(id: customer_ids) }
 
 =begin 
     def check_email

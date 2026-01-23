@@ -1,4 +1,7 @@
 class Product1 < ApplicationRecord
+
+    
+
     # do not allow special characters
     # validates :descripition, format: { without: /[<>&*$#]/, message: "cannot contain special characters like <, >, &, *, $, or #" }
     # or 
@@ -13,6 +16,11 @@ class Product1 < ApplicationRecord
             errors.add "cannot contain special characters like <, >, &, *, $, or #"
         end
     end
+
+    # date- 23/01/26  This is non parameterised scope.
+    scope :out_of_stock, -> { where("stock <= ?", 0) }
+    # scope :test_scope_for_joins, -> {joins(name_of_table.where)}
+    # scope :demo_check -> query{we can write here any type of sql queries}
     
     # use inbuild validation and check absent, use acceptance method
     # active pending 
@@ -68,8 +76,8 @@ class Product1 < ApplicationRecord
     validates :name, format: { with: /\A[a-zA-Z]+\z/, message: "Only letters are allowed" }
     validates :stock, numericality: true
     validates :price, numericality: true
-    # validates :price, numericality: { greater_than_or_equal_to: 3}
     validates :descripition, length: { maximum: 500 }
+    # validates :price, numericality: { greater_than_or_equal_to: 3}
 
     # this is custom validation 
     validate :check_avaliability

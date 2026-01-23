@@ -1,0 +1,1 @@
+we did discussed partials and wrtten validations in model.
