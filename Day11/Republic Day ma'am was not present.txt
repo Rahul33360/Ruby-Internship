@@ -1,0 +1,1 @@
+discussed scopes and modified in Day2 rails app in that changes made in model (created scopes (name,parameter)), routes(added custom maam given routes for product1 and customer1 table), controllers(used the scopes) ,views(create a action_name.html.erb file).
