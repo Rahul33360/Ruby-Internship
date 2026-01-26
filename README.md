@@ -432,9 +432,10 @@ Key Difference:
 
   1. Current class
   2. Parent class
-  3. Modules
-  4. Object
-* `ancestors` shows the method lookup chain.
+  3. Object(kernel,module)
+  4. Basic Object
+
+* `ancestors` shows the method lookup whole chain.
 
 ---
 
