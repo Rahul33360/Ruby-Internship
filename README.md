@@ -213,7 +213,7 @@ Examples:
 Example SQL:
 
 ```sql
-INSERT INTO products (name, description, price, stock, is_active, created_at, updated_at)
+INSERT INTO product1s (name, description, price, stock, is_active, created_at, updated_at)
 VALUES ('IQ', 'The IQ new product', 80, 2, TRUE, '2026-01-16', '2026-01-16');
 ```
 
@@ -721,9 +721,9 @@ A **scope** is a custom query defined in a Rails model. It is mainly used when t
 
 ## Scope Examples
 
-### 1. Out of Stock Products
+### 1. Out of Stock product1s
 
-Fetch products whose stock is zero or less.
+Fetch product1s whose stock is zero or less.
 
 ```ruby
 scope :out_of_stock, -> { where("stock <= ?", 0) }
@@ -743,12 +743,12 @@ scope :test_scope, -> { query {} }
 
 ---
 
-### 3. Whitelisted Products
+### 3. Whitelisted product1s
 
-Fetch products whose IDs are in a given list.
+Fetch product1s whose IDs are in a given list.
 
 ```ruby
-scope :whitelisted_products, -> { where("id IN (?)", [1, 2, 3]) }
+scope :whitelisted_product1s, -> { where("id IN (?)", [1, 2, 3]) }
 ```
 
 ---
@@ -786,7 +786,7 @@ Scopes can be chained together because they return ActiveRecord relations.
 Example:
 
 ```ruby
-Product.out_of_stock.whitelisted_products
+Product.out_of_stock.whitelisted_product1s
 ```
 
 ---
@@ -804,13 +804,67 @@ end
 
 ---
 
-### Products Controller
+### product1s Controller
 
 ```ruby
 def index
-  @products = Product.out_of_stock
+  @product1s = Product.out_of_stock
 end
 ```
 
+---
 
--
+
+
+# Day 11 - Notes
+
+# Task 1. Generating a Controller
+### rails generate controller admin
+### Rails creates files related to controller and views (Action Pack).
+### these are the file will be genereted
+```ruby 
+app/controllers/admin_controller.rb → controller file   
+app/views/admin/ → folder admin views    
+app/helpers/admin_helper.rb → helper file   
+test/controllers/admin_controller_test.rb → controller test file   
+```
+--- 
+
+Task 2. Generating a Model
+To generate: 
+```ruby 
+rails generate model admin
+```
+
+```ruby 
+app/models/admin.rb → model file
+db/migrate/XXXXXXXX_create_admins.rb → migration file
+test/models/admin_test.rb → model test file
+test/fixtures/admins.yml → test data
+
+then run this command: rails db:migrate is used to modify the database schema   
+```
+* If we Deleting show.html.erb file
+* Error: ActionController::UnknownFormat in CustomersController#show CustomersController#show is missing a template for this request format.
+
+why?
+Show action(method) exists in the controller and when we hit that url it will try to call the show.html.erb view file, which is missing.
+
+---
+
+# Try this in routes:
+```ruby 
+resources :products, except: [:show]
+resources :products, only: [:new, :destroy]
+```
+### To skip a route from being created via resources we use except
+### To create only a specific set of routes we use only.
+
+### Then If we try to open show page
+* URL: /products/1    -> (here 1 is id to show)  
+```ruby 
+Error we get: We will get this error,ActionController::RoutingError , No route matches [GET] "/products/1"
+```
+
+
+
