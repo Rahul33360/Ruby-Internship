@@ -18,9 +18,7 @@ end
 
 =begin 
 class Demo
-
     @@class_count = 0 # will be same for every object. because it is class variable
-    
     def initialize
         @instance_count = 0; #instance variable. will be different for every object.  
     end
@@ -35,9 +33,6 @@ class Demo
         local_count += 1
         # puts local_count
     end
-
-
-
     def instance_counting
         @instance_count +=1
         # puts count
@@ -71,7 +66,7 @@ class Demo2
         @name = name    # instance variable created here
     end
 
-    def declair    # declair
+    def declair         # declair
         @name           # will be nil if set_name wasn't called yet
     end
 end

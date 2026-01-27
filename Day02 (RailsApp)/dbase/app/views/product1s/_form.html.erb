@@ -1,42 +1,42 @@
-<%= form_with(model: product1) do |form| %>
+<%= form_with(model: product1, class: "product1-form") do |form| %>
   <% if product1.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(product1.errors.count, "error") %> prohibited this product1 from being saved:</h2>
+    <div style="color: red" class="form-errors">
+      <h2 class="form-errors__title"><%= pluralize(product1.errors.count, "error") %> prohibited this product1 from being saved:</h2>
 
-      <ul>
+      <ul class="form-errors__list">
         <% product1.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+          <li class="form-errors__item"><%= error.full_message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+  <div class="form-field">
+    <%= form.label :name, style: "display: block", class: "form-label" %>
+    <%= form.text_field :name, class: "form-input" %>
   </div>
 
-  <div>
-    <%= form.label :descripition, style: "display: block" %>
-    <%= form.textarea :descripition %>
+  <div class="form-field">
+    <%= form.label :descripition, style: "display: block", class: "form-label" %>
+    <%= form.textarea :descripition, class: "form-textarea" %>
   </div>
 
-  <div>
-    <%= form.label :price, style: "display: block" %>
-    <%= form.text_field :price %>
+  <div class="form-field">
+    <%= form.label :price, style: "display: block", class: "form-label" %>
+    <%= form.text_field :price, class: "form-input" %>
   </div>
 
-  <div>
-    <%= form.label :stock, style: "display: block" %>
-    <%= form.number_field :stock %>
+  <div class="form-field">
+    <%= form.label :stock, style: "display: block", class: "form-label" %>
+    <%= form.number_field :stock, class: "form-input" %>
   </div>
 
-  <div>
-    <%= form.label :is_active, style: "display: block" %>
-    <%= form.checkbox :is_active %>
+  <div class="form-field form-field--checkbox">
+    <%= form.label :is_active, style: "display: block", class: "form-label" %>
+    <%= form.checkbox :is_active, class: "form-checkbox" %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="form-actions">
+  <%= form.submit 'Submit Form', class: "form-submit" %>
   </div>
 <% end %>

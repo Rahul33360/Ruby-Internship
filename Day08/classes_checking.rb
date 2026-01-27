@@ -11,32 +11,6 @@ s.capitalize("raa")
 p Str.ancestors
 p s.respond_to?(:capitalize)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class B 
     #  from Object class 
     def display
@@ -64,9 +38,7 @@ class B
 end
 
 
-
-
-b= Base.new
+b = B.new
 puts b.respond_to?(:puts)
 puts b.respond_to?(:display)
 puts b.respond_to?(:replace)

@@ -9,7 +9,7 @@ class Product1sController < ApplicationController
   end
 
   def out_of_stock
-    # @product1s = Product1.where("stock <= ?", 0)  # not a good practice
+    # @product1s = Product1.where("stock <= ?", 0)  # we can write but not a good practice
     @product1s = Product1.out_of_stock
   end
 

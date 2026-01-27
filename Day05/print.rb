@@ -9,7 +9,11 @@ var2 = []
 var3 = {name:"sb"}
 p var2.class
 p var3.class
-# p var3.key.
+var3[:age] = 22                      # adding new key
+var3[:name] = "Car"                  # updating the previous value
+puts "All keys -> #{var3.keys}"      # lists all the keys
+p var3[:name]                        # var3[key]
+
 
 # dynamic input
 num1 = gets.chomp

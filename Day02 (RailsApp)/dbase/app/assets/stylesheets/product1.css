@@ -1,15 +1,15 @@
-.page{
+.product1s-index.page{
   max-width: 1050px;
   margin: 28px auto;
   padding: 0 16px;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
 
-.page-header{
+.product1s-index .page-header{
   margin-bottom: 10px;
 }
 
-.table-title{
+.product1s-index .table-title{
   text-align: center;
   color: #10d35e;
   font-size: 25px;
@@ -17,37 +17,37 @@
 }
 
 /* Table */
-.table{
+.product1s-index .table{
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
   border: 1px solid #ddd;
 }
 
-.table th,
-.table td{
+.product1s-index .table th,
+.product1s-index .table td{
   padding: 12px;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
 
 /* Header */
-.table thead th{
+.product1s-index .table thead th{
   background-color: #10d35e;
   color: white;
   text-transform: uppercase;
 }
 
 /* Zebra + hover */
-.table tbody tr:nth-child(even){
+.product1s-index .table tbody tr:nth-child(even){
   background-color: #e4e3e3;
 }
 
-.table tbody tr:hover{
+.product1s-index .table tbody tr:hover{
   background-color: #ddd;
 }
 
-.status{
+.product1s-index .status{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -57,10 +57,166 @@
   border-radius: 50%;
 }
 
-.status-true{
+.product1s-index .status-true{
   background: #10d35e;
 }
 
-.status-false{
+.product1s-index .status-false{
   background: red;
+}
+
+
+.product1s-form-page.page{
+  max-width: 700px;
+  margin: 28px auto;
+  padding: 0 16px;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.product1-form{
+  border: 1px solid #c3c2c2;
+  border-radius: 10px;
+  padding: 18px 16px;
+  background: #fff;
+}
+
+.form-field{ margin-top: 12px; }
+
+.form-label{
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.form-input,
+.form-textarea{
+  width: 90%;
+  border: 1px solid #b5b5b5;
+  border-radius: 8px;
+  padding: 10px 12px;
+  outline: none;
+}
+
+.form-textarea{
+  min-height: 110px;
+  resize: vertical;
+}
+
+.form-input:focus,
+.form-textarea:focus{
+  border-color: #10d35e;
+  box-shadow: 0 0 0 3px rgba(16, 211, 94, 0.18);
+}
+
+.form-field--checkbox{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.form-field--checkbox .form-label{ margin: 0; }
+
+.form-actions{ margin-top: 16px; }
+
+.form-submit{
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: #10d35e;
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+/* wrapper */
+.product1s-show.page{
+  max-width: 1050px;
+  margin: 28px auto;
+  padding: 0 16px;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+/* notice */
+.notice-center{
+  text-align: center;
+  font-weight: 800;
+  margin: 10px 0 14px;
+}
+
+/* center container */
+.show-wrap{
+  display: flex;
+  justify-content: center;
+}
+
+/* panel/card */
+.show-panel{
+  width: 100%;
+  max-width: 720px;
+  border: 1px solid #ddd;
+  border-top: 6px solid #10d35e;
+  border-radius: 14px;
+  background-color: #e5e4e4;
+  padding: 18px 16px;
+}
+
+/* give rendered content some breathing room without touching its text */
+.show-panel > *:first-child{
+  margin-top: 0;
+}
+.show-panel > *{
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 14px 12px;
+}
+
+/* actions */
+.show-actions-center{
+  margin-top: 14px;
+  text-align: center;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+/* links simple + clean */
+.show-link{
+  color: #111;
+  font-weight: 800;
+  text-decoration: none;
+  border-bottom: 3px solid rgba(16, 211, 94, 0.45);
+  padding-bottom: 2px;
+}
+
+.show-link:hover{
+  border-bottom-color: #10d35e;
+}
+
+/* button_to form */
+.destroy-form{
+  display: inline-block;
+  margin-top: 20px;
+  margin-left: 10px;
+  padding: 10px;
+  font-weight: 800;
+  border-radius: 8px;
+  border: 3px solid rgba(16, 211, 94, 0.45);
+  background-color: #e5e4e4;
+
+}
+
+/* destroy button - outline style */
+.destroy-outline button{
+  background: #fff;
+  color: #d11a2a;
+  border: 2px solid #d11a2a;
+  font-weight: 900;
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.destroy-outline button:hover{
+  background: #d11a2a;
+  color: #fff;
 }

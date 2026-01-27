@@ -1,41 +1,42 @@
+<div class="page product1s-index">
+  <%= link_to "New Product", new_product1_path %>
+  <% content_for :title, "BahutSaraProducts" %>
+  <header class="page-header">
+  <div style="margin-left: auto; margin-right: auto; color: #10d35e; font-size: 25px; font-weight:800">Product Table</div>
+  </header>
 
-<%= link_to "New Product", new_product1_path %>
-<% content_for :title, "BahutSaraProducts" %>
-<header class="page-header">
-<div style="margin-left: auto; margin-right: auto; color: #10d35e; font-size: 25px; font-weight:800">Product Table</div>
-</header>
-
-<section class="page">
-<table class="table" border="1" cellpadding="5" cellspacing="0">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Discription</th>
-      <th>Price</th>
-      <th>Stock</th>
-      <th>Is_Active</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% # @product1s =  @product1s.out_of_stock %>
-    <% #= var="rah"; var.upcase%>
-    <% @product1s.each do |product1| %>
+  <section class="page">
+  <table class="table" border="1" cellpadding="5" cellspacing="0">
+    <thead>
       <tr>
-        <td> <%= product1.name%></td>
-        <td> <%= product1.descripition%> </td>
-        <td> <%= product1.price%></td>
-        <td> <%= product1.stock%></td>
-        <td>
-          <% if product1.is_active %>
-            <span class="status status-true"></span>
-          <% else %>
-            <span class="status status-false"></span>
-          <% end %>
-        </td>
-        <td> <%= link_to "Show", product1 %> </td>
+        <th>Name</th>
+        <th>Discription</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Is_Active</th>
+        <th>Action</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-</section>
+    </thead>
+    <tbody>
+      <% # @product1s =  @product1s.out_of_stock %>
+      <% #= var="rah"; var.upcase%>
+      <% @product1s.each do |product1| %>
+        <tr>
+          <td> <%= product1.name%></td>
+          <td> <%= product1.descripition%> </td>
+          <td> <%= product1.price%></td>
+          <td> <%= product1.stock%></td>
+          <td>
+            <% if product1.is_active %>
+              <span class="status status-true"></span>
+            <% else %>
+              <span class="status status-false"></span>
+            <% end %>
+          </td>
+          <td> <%= link_to "Show", product1 %> </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  </section>
+</div>

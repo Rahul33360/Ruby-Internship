@@ -1,10 +1,16 @@
-<p style="color: green"><%= notice %></p>
+<p style="color: green" class="notice notice-center"><%= notice %></p>
 
-<%= render @product1 %>
+<div class="page product1s-show">
+  <div class="show-wrap">
+    <div class="show-panel">
+      <%= render @product1 %>
 
-<div>
-  <%= link_to "Edit this product1", edit_product1_path(@product1) %> |
-  <%= link_to "Back to product1s", product1s_path %>
+      <div class="show-actions show-actions-center">
+        <%= link_to "Edit this product1", edit_product1_path(@product1), class: "show-link" %> |
+        <%= link_to "Back to Product", product1s_path, class: "show-link" %>
 
-  <%= button_to "Destroy this product1", @product1, method: :delete %>
+        <%= button_to "Destroy this Product", @product1, method: :delete, class: "destroy-form destroy-outline" %>
+      </div>
+    </div>
+  </div>
 </div>

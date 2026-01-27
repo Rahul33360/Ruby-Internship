@@ -3,28 +3,28 @@
 
 arr2 = [1,4,0,0,7,2]
 arr3 = arr2.select {|a| a<4} 
-puts arr3
+p arr3
 
 puts "Reject -> "
 # arr2 = [1,4,0,0,7,2]
 arr5 = arr2.reject {|a| a<4} 
-puts arr5
+p arr5
 
 
 # using bang operator -> !
 
 arr6 = [1,4,0,0,7,2]
-puts "Befor using bang Operator #{arr6}"
+p "Befor using bang Operator #{arr6}"
 arr7 = arr6.select! {|a| a<4}
-puts "After using bang Operator"
-puts "original arr #{arr6}"
-puts "new stored array #{arr7}"
+p "After using bang Operator"
+p "original arr #{arr6}"
+p "new stored array #{arr7}"
 
 print "-------------\n"
 
 arr8 = [1,456,77,9,22,132,45]
 # puts arr8
-p arr8.all? {|n| n>5 }  # it return boolean value(false) if all the values will be greate than 5
+p arr8.all? {|n| n>5 }  # it return boolean value(false) if all the values will be greater than 5
 
 
 # below one it the opposite of all
