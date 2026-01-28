@@ -818,10 +818,10 @@ end
 
 # Day 11 - Notes
 
-# Task 1. Generating a Controller
-### rails generate controller admin
-### Rails creates files related to controller and views (Action Pack).
-### these are the file will be genereted
+### Task 1. Generating a Controller 
+* rails generate controller admin
+* Rails creates files related to controller and views (Action Pack).
+* these are the file will be genereted
 ```ruby 
 app/controllers/admin_controller.rb → controller file   
 app/views/admin/ → folder admin views    
@@ -830,8 +830,8 @@ test/controllers/admin_controller_test.rb → controller test file
 ```
 --- 
 
-Task 2. Generating a Model
-To generate: 
+### Task 2. Generating a Model
+* To generate: 
 ```ruby 
 rails generate model admin
 ```
@@ -852,15 +852,14 @@ Show action(method) exists in the controller and when we hit that url it will tr
 
 ---
 
-# Try this in routes:
+### Task 3 (Try this in routes):
 ```ruby 
 resources :products, except: [:show]
 resources :products, only: [:new, :destroy]
 ```
-### To skip a route from being created via resources we use except
-### To create only a specific set of routes we use only.
-
-### Then If we try to open show page
+* To skip a route from being created via resources we use except
+* To create only a specific set of routes we use only.  
+* Then If we try to open show page
 * URL: /products/1    -> (here 1 is id to show)  
 ```ruby 
 Error we get: We will get this error,ActionController::RoutingError , No route matches [GET] "/products/1"

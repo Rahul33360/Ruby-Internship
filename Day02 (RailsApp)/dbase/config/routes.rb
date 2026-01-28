@@ -4,13 +4,13 @@ Rails.application.routes.draw do
   
   # resources :products, except: [:show]
   # resources :product1s, only: [:new, :edit, :create, :update]
-  # resources :product1s, only: [:new, :edit]
+  resources :product1s, only: [:new, :edit]
 
-   resources :product1s, except: [:show] do
-    collection do
-      get "out_of_stock"
-    end
-  end
+  #  resources :product1s, except: [:show] do
+  #   collection do
+  #     get "out_of_stock"
+  #   end
+  # end
 
   # resources :product1s do
   #   collection do

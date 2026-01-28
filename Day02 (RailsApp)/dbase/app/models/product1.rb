@@ -8,59 +8,59 @@ class Product1 < ApplicationRecord
     # validates :descripition , format: { with: /\A[a-zA-Z0-9 ]+\z/ , message: "cannot contain special characters like <, >, &, *, $, or #" }
     # or
     # using custom validation
-    validate :nospecialchars
+    # validate :nospecialchars
     
-    def nospecialchars
-        return if descripition.blank?
-        if descripition.match?(/[<>&*$#]/)
-            errors.add "cannot contain special characters like <, >, &, *, $, or #"
-        end
-    end
+    # def nospecialchars
+    #     return if descripition.blank?
+    #     if descripition.match?(/[<>&*$#]/)
+    #         errors.add "cannot contain special characters like <, >, &, *, $, or #"
+    #     end
+    # end
 
-    # date- 23/01/26  This is non parameterised scope.
-    scope :out_of_stock, -> { where("stock <= ?", 0) }
-    # scope :test_scope_for_joins, -> {joins(name_of_table.where)}
-    # scope :demo_check -> query{we can write here any type of sql queries}
+    # # date- 23/01/26  This is non parameterised scope.
+    # scope :out_of_stock, -> { where("stock <= ?", 0) }
+    # # scope :test_scope_for_joins, -> {joins(name_of_table.where)}
+    # # scope :demo_check -> query{we can write here any type of sql queries}
     
-    # use inbuild validation and check absent, use acceptance method
-    # active pending 
-    validates :is_active, acceptance: true
+    # # use inbuild validation and check absent, use acceptance method
+    # # active pending 
+    # validates :is_active, acceptance: true
 
 
 
 
 
 
-    # custom validation do alphanumeric
-    validate :name_alphanuumeric
+    # # custom validation do alphanumeric
+    # validate :name_alphanuumeric
     
-    def name_alphanuumeric
-        return if name.blank?
-        unless name.match?(/\A[a-zA-Z0-9 ]+\z/)
-            errors.add "only letters and numbers allowed and spaces"
-        end
-    end
+    # def name_alphanuumeric
+    #     return if name.blank?
+    #     unless name.match?(/\A[a-zA-Z0-9 ]+\z/)
+    #         errors.add "only letters and numbers allowed and spaces"
+    #     end
+    # end
 
-    # if product is inactive (not marked checked) then we don't add the price only
-    validate :only_price
+    # # if product is inactive (not marked checked) then we don't add the price only
+    # validate :only_price
 
-    def only_price
-        if is_active == false
-            if price > 0
-            # if name.present? || descripition.present? || stock.present?
-            errors.add "When product is inactive, add price only"
-            end
-        end
-    end
+    # def only_price
+    #     if is_active == false
+    #         if price > 0
+    #         # if name.present? || descripition.present? || stock.present?
+    #         errors.add "When product is inactive, add price only"
+    #         end
+    #     end
+    # end
 
-    # if is_active = true then only able to add stock
-    validate :add_stock
+    # # if is_active = true then only able to add stock
+    # validate :add_stock
 
-    def add_stock
-        if is_active == false && stock.present?
-            error.add "first mark the is_active checked then stock can be added."
-        end
-    end
+    # def add_stock
+    #     if is_active == false && stock.present?
+    #         error.add "first mark the is_active checked then stock can be added."
+    #     end
+    # end
 
 
 
