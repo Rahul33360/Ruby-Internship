@@ -1,10 +1,24 @@
-<p style="color: green"><%= notice %></p>
+<p class="notice"><%= notice %></p>
 
-<%= render @customer1 %>
+<div class="customer1-page">
+  <div class="customer1-field">
+    <strong>Name</strong>
+    <%= @customer1.name %>
+  </div>
 
-<div>
-  <%= link_to "Edit this customer1", edit_customer1_path(@customer1) %> |
-  <%= link_to "Back to customer1s", customer1s_path %>
+  <div class="customer1-field">
+    <strong>Email</strong>
+    <%= @customer1.email %>
+  </div>
 
-  <%= button_to "Destroy this customer1", @customer1, method: :delete %>
+  <div class="customer1-field customer1-richtext">
+    <strong>About me</strong>
+    <%= @customer1.aboutme %>
+  </div>
+
+  <div class="customer1-actions">
+    <%= link_to "Edit this customer1", edit_customer1_path(@customer1), class: "customer1-edit" %>
+    <%= link_to "Back to customer1s", customer1s_path, class: "customer1-back" %>
+    <%= button_to "Destroy this customer1", @customer1, method: :delete, class: "customer1-delete" %>
+  </div>
 </div>

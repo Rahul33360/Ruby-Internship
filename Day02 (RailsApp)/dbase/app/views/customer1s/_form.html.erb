@@ -1,7 +1,9 @@
-<%= form_with(model: customer1) do |form| %>
+<%= form_with(model: customer1, class: "customer1-form") do |form| %>
   <% if customer1.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(customer1.errors.count, "error") %> prohibited this customer1 from being saved:</h2>
+    <div class="customer1-errors" style="color: red">
+      <h2>
+        <%= pluralize(customer1.errors.count, "error") %> prohibited this customer1 from being saved:
+      </h2>
 
       <ul>
         <% customer1.errors.each do |error| %>
@@ -11,17 +13,22 @@
     </div>
   <% end %>
 
-  <div>
+  <div class="customer1-form-field">
     <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: "customer1-input" %>
   </div>
 
-  <div>
+  <div class="customer1-form-field">
     <%= form.label :email, style: "display: block" %>
-    <%= form.text_field :email %>
+    <%= form.text_field :email, class: "customer1-input" %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="customer1-form-field">
+    <%= form.label :about_me, style: "display: block" %>
+    <%= form.rich_text_area :aboutme, class: "customer1-richtext" %>
+  </div>
+
+  <div class="customer1-actions">
+    <%= form.submit class: "customer1-submit" %>
   </div>
 <% end %>

@@ -1,5 +1,5 @@
 <%= form_with(model: product1, class: "product1-form") do |form| %>
-  <%# if product1.errors.any? %>
+  <% if product1.errors.any? %>
     <div style="color: red" class="form-errors">
       <h2 class="form-errors__title"><%= pluralize(product1.errors.count, "error") %> prohibited this product1 from being saved:</h2>
 
@@ -16,20 +16,27 @@
     <%= form.text_field :name, class: "form-input" %>
   </div>
 
+  
+  <div class="form-field">
+  <%= form.label :price, style: "display: block", class: "form-label" %>
+  <%= form.text_field :price, class: "form-input" %>
+  </div>
+  
+  <div class="form-field">
+  <%= form.label :stock, style: "display: block", class: "form-label" %>
+  <%= form.number_field :stock, class: "form-input" %>
+  </div>
+  
   <div class="form-field">
     <%= form.label :descripition, style: "display: block", class: "form-label" %>
     <%= form.textarea :descripition, class: "form-textarea" %>
   </div>
-
-  <div class="form-field">
-    <%= form.label :price, style: "display: block", class: "form-label" %>
-    <%= form.text_field :price, class: "form-input" %>
+  
+  <div>
+  <%= form.label :feedback, style: "display: block" %>
+  <%= form.rich_text_area :feedback %>
   </div>
-
-  <div class="form-field">
-    <%= form.label :stock, style: "display: block", class: "form-label" %>
-    <%= form.number_field :stock, class: "form-input" %>
-  </div>
+  
 
   <div class="form-field form-field--checkbox">
     <%= form.label :is_active, style: "display: block", class: "form-label" %>

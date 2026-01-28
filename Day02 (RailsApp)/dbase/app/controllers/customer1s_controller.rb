@@ -18,6 +18,7 @@ class Customer1sController < ApplicationController
 
   # GET /customer1s/1 or /customer1s/1.json
   def show
+    # raise params.inspect    # use to inspect what and all the data is flowing/passing/going through this action(method)
   end
 
   # GET /customer1s/new
@@ -46,6 +47,8 @@ class Customer1sController < ApplicationController
 
   # PATCH/PUT /customer1s/1 or /customer1s/1.json
   def update
+    # raise params.inspect # use to inspect what and all the data is flowing/passing/going through this action(method)
+    # raise customer1_params.inspect # use to inspect what and all the data is flowing/passing/going through this action(method)
     respond_to do |format|
       if @customer1.update(customer1_params)
         format.html { redirect_to @customer1, notice: "Customer1 was successfully updated.", status: :see_other }
@@ -60,7 +63,6 @@ class Customer1sController < ApplicationController
   # DELETE /customer1s/1 or /customer1s/1.json
   def destroy
     @customer1.destroy!
-
     respond_to do |format|
       format.html { redirect_to customer1s_path, notice: "Customer1 was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
@@ -75,6 +77,6 @@ class Customer1sController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def customer1_params
-      params.expect(customer1: [ :name, :email ])
+      params.expect(customer1: [ :name, :email, :aboutme])  # :aboutme added
     end
 end

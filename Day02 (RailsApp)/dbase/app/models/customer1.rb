@@ -1,8 +1,9 @@
 class Customer1 < ApplicationRecord
 
+    has_rich_text:aboutme   # this allows action_text
 
-    validates :name , moderate: true
-    validates :email, moderate: true
+    validates :name , presence: true
+    validates :email, presence: true
 
     # non-parameterised scope.
     # scope :unique_email, -> {where(email: "rahul@grmail.com").pluck(:email)}   # first email is table column name, second one is object attribute model name (tableColumn: ObjectAttribute) 

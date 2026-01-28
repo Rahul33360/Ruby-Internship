@@ -1,5 +1,5 @@
 <div class="page product1s-index">
-  <%= link_to "New Product", new_product1_path %>
+  <%= link_to "Add New Product", new_product1_path, class:"destroy-form no-underline"%>
   <% content_for :title, "BahutSaraProducts" %>
   <header class="page-header">
   <div style="margin-left: auto; margin-right: auto; color: #10d35e; font-size: 25px; font-weight:800">Product Table</div>
@@ -14,6 +14,7 @@
         <th>Price</th>
         <th>Stock</th>
         <th>Is_Active</th>
+        <th>Feedback</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -32,6 +33,11 @@
             <% else %>
               <span class="status status-false"></span>
             <% end %>
+          </td>
+          <td>
+            <p>
+              <%= product1.feedback %>
+            </p>
           </td>
           <td> <%= link_to "Show", product1 %> </td>
         </tr>

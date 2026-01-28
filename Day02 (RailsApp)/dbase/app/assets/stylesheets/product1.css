@@ -127,6 +127,14 @@
   cursor: pointer;
 }
 
+.no-underline {
+  font-size: 15px;
+  display: inline-block;
+  color: rgb(34, 34, 34);
+  text-decoration: none;
+}
+
+
 /* wrapper */
 .product1s-show.page{
   max-width: 1050px;
