@@ -4,7 +4,19 @@
   <div class="show-wrap">
     <div class="show-panel">
       <%= render @product1 %>
-
+      
+      <div class="customer1-field customer1-richtext">
+        <strong>Invoice</strong>
+        <div class="invoice">
+          <% if @product1.invoice.attached? %>
+              <%= link_to @product1.invoice.filename.to_s,
+                          url_for(@product1.invoice),
+                          target: "_blank" %>
+            <% else %>
+              No invoice
+            <% end %>
+        </div>
+      </div>
 
       <div class="show-actions show-actions-center">
         <%= link_to "Edit this product1", edit_product1_path(@product1), class: "show-link" %> |

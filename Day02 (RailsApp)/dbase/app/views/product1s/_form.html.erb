@@ -43,6 +43,16 @@
     <%= form.checkbox :is_active, class: "form-checkbox" %>
   </div>
 
+  <div class="form-field form-field--checkbox">
+    <%= form.label :product_pic, style: "display: block", class: "form-label" %>
+    <%= form.file_field :product_pic, multiple:true, class: "form-checkbox" %>
+  </div>
+
+  <div class="form-field form-field--checkbox">
+    <%= form.label :invoice, style: "display: block", class: "form-label" %>
+    <%= form.file_field :invoice, class: "form-checkbox" %>
+  </div>
+
   <div class="form-actions">
   <%= form.submit 'Submit Form', class: "form-submit" %>
   </div>

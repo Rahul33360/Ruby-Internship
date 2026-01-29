@@ -29,5 +29,13 @@
     <%= @product1.feedback %>
   </p>
 
+  <div>
+      <strong>Product_Pic:</strong><br>
+      <% if @product1.product_pic.attached? %>
+        <% @product1.product_pic.each do |pic| %>
+        <%= image_tag pic%>
+        <% end %>
+      <% end %>
+    <div>
 
 </div>

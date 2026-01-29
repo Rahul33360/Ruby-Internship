@@ -16,6 +16,14 @@
     <%= @customer1.aboutme %>
   </div>
 
+  <div class="customer1-field customer1-richtext">
+    <strong>Profile Pic</strong>
+    <% #= @customer1.profile_pic %>
+    <div class="profilepic">
+    <%= image_tag @customer1.profile_pic, alt: "Profile Picture" if @customer1.profile_pic.attached? %>
+    </div>
+  </div>
+
   <div class="customer1-actions">
     <%= link_to "Edit this customer1", edit_customer1_path(@customer1), class: "customer1-edit" %>
     <%= link_to "Back to customer1s", customer1s_path, class: "customer1-back" %>

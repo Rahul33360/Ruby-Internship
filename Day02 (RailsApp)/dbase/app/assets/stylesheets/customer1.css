@@ -282,3 +282,15 @@ body {
 .customer1-delete:active {
   transform: translateY(1px);
 }
+
+
+/* .profilepic {
+  max-width: 10px;
+  max-height: 10px;
+} */
+img{
+  object-fit: cover;
+  max-width: 50px;
+  max-height: 30px;
+  box-sizing: border-box;
+}

@@ -1,4 +1,10 @@
 <div id="<%= dom_id customer1 %>">
+
+  <div>
+    <strong>Profile pic:</strong>
+    <%= image_tag customer1.profile_pic, alt: "Profile Picture" if customer1.profile_pic.attached? %>
+  </div>
+
   <div>
     <strong>Name:</strong>
     <%= customer1.name %>
@@ -8,9 +14,19 @@
     <strong>Email:</strong>
     <%= customer1.email %>
   </div>
+
   <div>
     <strong>AboutMe:</strong>
     <%= customer1.aboutme%>
+  </div>
+
+  <div>
+    <strong>Date Of Birth:</strong>
+    <% if customer1.birth_date.present?%>
+      <%= customer1.birth_date.to_s%>
+    <% else %>
+      <%= "-" %>
+    <% end %>
   </div>
 
 </div>

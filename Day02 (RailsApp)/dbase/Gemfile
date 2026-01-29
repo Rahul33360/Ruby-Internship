@@ -68,6 +68,8 @@ end
 #newly added gems my me
 gem "faker"
 
+gem 'activestorage-validator'
+
 #for profanity gems name
 gem 'moderate'
 gem 'obscenity'

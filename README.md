@@ -454,7 +454,7 @@ Key Difference:
 
 ---
 
-# Day 8 – Conditional Statements & Methods in Ruby
+**Day 8 – Conditional Statements & Methods in Ruby**
 ---
 ## 1. Conditional Statements
 
@@ -543,7 +543,7 @@ class Product
 end
 ```
 
-# 9 Rails Models: Customer & Product Validations
+**Day 9 Rails Models: Customer & Product Validations**
 
 ## Customer Model (`Customer < ApplicationRecord`)
 ---
@@ -714,7 +714,7 @@ end
 
     * Always try creating invalid and valid records in the console to confirm your rules work.
 
-# Day 10 – Rails Scopes
+**Day 10 – Rails Scopes**
 
 A **scope** is a custom query defined in a Rails model. It is mainly used when the same query is needed multiple times.
 ---
@@ -814,9 +814,23 @@ end
 
 ---
 
+**Day 11 -> Republic Day (no task given)**
 
+**Day 12 - Notes**
 
-# Day 11 - Notes
+| Component Name        | Available From (Rails) | What it is / Why it is used                                                                                        |
+| --------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| **Active Model**      | Rails 3.0              | Provides model features like validations and callbacks **without a database**. Used when you don’t need DB tables. |
+| **Active Record**     | Rails 1.0              | ORM layer. Connects Rails to database, handles CRUD, migrations, and represents table rows as Ruby objects.        |
+| **Action Controller** | Rails 1.0              | Handles browser requests, talks to models, and sends data to views. Acts as the app’s manager.                     |
+| **Action View**       | Rails 1.0              | Generates HTML using ERB/HAML and displays data received from controller.                                          |
+| **Action Dispatch**   | Rails 1.0              | Handles routing and decides which controller and action should handle a request.                                   |
+| **Action Mailer**     | Rails 1.0              | Used to send emails like welcome emails, password reset, notifications, etc.                                       |
+| **Active Support**    | Rails 1.0              | Utility library that extends Ruby with helpers like date, time, string helpers.                                    |
+| **Active Job**        | Rails 4.2              | Manages background jobs (long-running tasks like emails, reports). Works with Sidekiq, Resque, etc.                |
+| **Action Cable**      | Rails 5.0              | Provides WebSocket support for real-time features like chat and live notifications.                                |
+| **Active Storage**    | Rails 5.2              | Handles file uploads (images, videos, documents) and stores them locally or on cloud (S3, etc.).                   |
+
 
 ### Task 1. Generating a Controller 
 * rails generate controller admin
@@ -865,5 +879,136 @@ resources :products, only: [:new, :destroy]
 Error we get: We will get this error,ActionController::RoutingError , No route matches [GET] "/products/1"
 ```
 
+--- 
+
+**Day 13 (add_column, action_text)**
+
+### Some routes commands:
+
+```ruby 
+rails route
+rails route | grep product_path
+```
+
+### ⚠️Note: WE SHOULD NOT MODIFY THE schema.rb (db file)
+
+## Concepts
+
+### For adding column in your Database (follow the case):
+```ruby 
+command : rails generate migration className_with_tableName column_name:datatype_based_sql
+
+Ex:- rails generate migration AddColumnPhoneToCustomer1 phone_number:integer
+
+Then Run: rails db:migrate
+```
+* In here we need to pass proper readable classname with attached table name and then column_name as we want.
+* then check in Your schema.rb it is added or not.
+
+### Steps to create action text (in you form).
+* before installing check your app folder inside your applicaiton, javascript folder is present or not. 
+* Then check inside or search using ctrl+p (better) about these files are present or not.
+```ruby
+ 1) applicaiton.js
+ 2) importmap.rb
+```
+
+* if not present run below commands:
+
+```ruby
+for rails version 8 -> rails importmap:install
+for rails version 7 -> rails javascript:install
+```
+
+* to bring rich text editing capabilities to your Rails application form like (adding media files, adding underlines,itallic,bullets point in the textarea,etc).
+
+* Then run below command: 
+
+```ruby 
+command : rails action_text:install
+```
+* This will modify above mentioned file two of the file and create a new file with actiontext.css in app/assets/stylesheet
+
+## Tasks :
+
+### 1) compare the difference between schema.rb file before and after installation action_text.
+
+* after installation we got some changes :
+```begin
+  1) create_table "action_text_rich_texts"
+  2) create_table "active_storage_attachments"
+  3) create_table "active_storage_blobs"
+  4) create_table "active_storage_variant_records"
+  5) add_foreign_key "active_storage_attachments"
+  6) add_foreign_key "active_storage_variant_records"
+
+  these are the some code snippets added.
+```  
+
+### 2) Inspect in each controller method and acknowledgement using below command:
+
+```ruby
+  rails params:inspect
+```
+
+### 3) create two array and check intersection output (&) between them.
+
+```ruby
+a1 = [1,2,3,6,3,nil,4,5,nil,6,nil,"",""]
+a2 = [1,4,2,4,7,9]
+
+p a1&a2     # [1, 2, 4]
+p "------"
+p a1&a1     # [1, 2, 3, 6, nil, 4, 5, ""]
+# we are getting the distinct value when we are doing intersect with same array
+```
+
+### 4) Implement action_text in Product and Customer table 
+
+* Did changes in the code for implementing it in.
+```begin
+steps 1: model/product.rb
+steps 2: product_controller.rb(in that product_params action)
+steps 3: write in view (_form, _edit,etc).
+```
+
+---
+
+**Day 14 (active_storage, column_adding_migration)**
+
+## Tasks :
+
+### 1) create column for invoice through attachment (has_one_attached) in product table
+
+* Step 1: add this in table.rb (model) file -> has_one_attached:column_name
+* step 2: add the same col_name (in symbol form) in def customer1_params of controller.  
+* step 3: then implement it in the view wherever needed(in html.erb files). 
+
+### 2) create column dateofbirth(DOB) in customer using generate migration.
+
+* Step 1: run the command-> rails generate migration Add/RemoveColumnCol_nameToTab_name col_name:datatype (based on sql)
+```ruby 
+Ex : rails generate migration AddColumnBirthDateToCustomer1 birth_date:date
+```
+* step 2: then run -> rails db:migrate
+* step 3: check schema.rb it is added or not.
+
+### 3) Form helpers (rails docs)
 
 
+## Concepts:
+
+### For active storage installation
+```ruby
+rails active_storage:installing
+```
+
+### Sequence Order for writing in model.rb file (good practice)
+
+* 1) action_text/storage
+* 2) validation
+* 3) scopes
+* 4) methods
+
+### For multiple data adding/selection using html.erb add -> multiple:true (in .html.erb file)
+---

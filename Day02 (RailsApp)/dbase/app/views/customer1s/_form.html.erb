@@ -28,6 +28,18 @@
     <%= form.rich_text_area :aboutme, class: "customer1-richtext" %>
   </div>
 
+  <div class="customer1-form-field">
+    <%= form.label :profile_pic, style: "display: block" %>
+    <%= form.file_field :profile_pic, class: "customer1-richtext" %>
+  </div>
+
+  <div class="customer1-form-field">
+    <%= form.label :birth_date, style: "display: block" %>
+    <%= form.date_field :birth_date, class: "customer1-richtext" %>
+  </div>
+
+  
+
   <div class="customer1-actions">
     <%= form.submit class: "customer1-submit" %>
   </div>

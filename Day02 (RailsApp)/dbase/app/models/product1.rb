@@ -1,6 +1,15 @@
 class Product1 < ApplicationRecord
 
+    has_one_attached:invoice
+
+    has_many_attached:product_pic
+
+    # has_one_attached:product_pic
+
     has_rich_text :feedback
+
+    # for invoice - only pdf is allowed
+    # validates :invoice, attached: true, content_type: 'application/pdf'
 
     # do not allow special characters
     # validates :descripition, format: { without: /[<>&*$#]/, message: "cannot contain special characters like <, >, &, *, $, or #" }
