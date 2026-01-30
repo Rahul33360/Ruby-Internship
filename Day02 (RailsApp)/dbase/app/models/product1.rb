@@ -8,9 +8,21 @@ class Product1 < ApplicationRecord
 
     has_rich_text :feedback
 
+    validate :invoice_format
+
+    def invoice_format
+        unless invoice.attached?
+            errors.add(:invoice, 'is required')
+        end
+
+        unless invoice.content_type.in?(%w(application/msword application/pdf))
+            invoice.purge
+            errors.add(:invoice, 'Must be a PDF or a DOC file')
+        end
+    end
+
     # for invoice - only pdf is allowed
     # validates :invoice, attached: true, content_type: 'application/pdf'
-
     # do not allow special characters
     # validates :descripition, format: { without: /[<>&*$#]/, message: "cannot contain special characters like <, >, &, *, $, or #" }
     # or 

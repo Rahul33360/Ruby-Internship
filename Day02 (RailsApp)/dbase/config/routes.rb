@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
+
   # resources :customer1s
   # resources :product1s 
   
@@ -17,7 +22,6 @@ Rails.application.routes.draw do
       get "out_of_stock"
     end
   end
-
 
   resources :customer1s do
     collection do

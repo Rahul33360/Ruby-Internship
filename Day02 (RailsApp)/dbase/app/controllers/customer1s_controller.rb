@@ -35,8 +35,11 @@ class Customer1sController < ApplicationController
     @customer1 = Customer1.new(customer1_params)
 
     respond_to do |format|
-      if @customer1.save
+                         # Day 15
+      if @customer1.save # trigger a email after saving the the data
         format.html { redirect_to @customer1, notice: "Customer1 was successfully created." }
+        # Day 15
+        Customer1Mailer.with(customer1: @customer1).welcome_email.deliver
         format.json { render :show, status: :created, location: @customer1 }
       else
         format.html { render :new, status: :unprocessable_entity }

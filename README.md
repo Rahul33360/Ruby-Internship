@@ -902,6 +902,7 @@ Ex:- rails generate migration AddColumnPhoneToCustomer1 phone_number:integer
 
 Then Run: rails db:migrate
 ```
+* then add that excate column name in table_name_controller.
 * In here we need to pass proper readable classname with attached table name and then column_name as we want.
 * then check in Your schema.rb it is added or not.
 

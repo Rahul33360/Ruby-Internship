@@ -33,6 +33,8 @@ class Product1sController < ApplicationController
     respond_to do |format|
       if @product1.save
         format.html { redirect_to @product1, notice: "Product1 was successfully created." }
+        # Day 15
+        Product1Mailer.with(product1: @product1).welcome_email.deliver
         format.json { render :show, status: :created, location: @product1 }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -72,6 +74,6 @@ class Product1sController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product1_params
-      params.expect(product1: [ :name, :descripition, :price, :stock, :is_active, :feedback, :invoice,product_pic:[]]) # and invoice as attachment
+      params.expect(product1: [ :name, :descripition, :price, :stock, :is_active, :feedback, :email ,:invoice,product_pic:[]]) # and invoice as attachment
     end
 end

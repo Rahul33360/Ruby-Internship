@@ -26,6 +26,11 @@
   <%= form.label :stock, style: "display: block", class: "form-label" %>
   <%= form.number_field :stock, class: "form-input" %>
   </div>
+
+  <div class="form-field form-field--checkbox">
+    <%= form.label :email, style: "display: block", class: "form-label" %>
+    <%= form.text_field :email, class: "form-input" %>
+  </div>
   
   <div class="form-field">
     <%= form.label :descripition, style: "display: block", class: "form-label" %>
@@ -52,6 +57,7 @@
     <%= form.label :invoice, style: "display: block", class: "form-label" %>
     <%= form.file_field :invoice, class: "form-checkbox" %>
   </div>
+  
 
   <div class="form-actions">
   <%= form.submit 'Submit Form', class: "form-submit" %>
