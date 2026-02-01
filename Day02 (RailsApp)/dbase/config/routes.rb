@@ -1,8 +1,17 @@
 Rails.application.routes.draw do
 
+  # Day15 required for Action_Mailer
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
+
+  resources :orders  # allow all the endpoints in controller
+
+  # resources :orders do
+  #   collection do
+  #     get "index"
+  #   end
+  # end
 
   # resources :customer1s
   # resources :product1s 
@@ -17,6 +26,7 @@ Rails.application.routes.draw do
   #   end
   # end
 
+
   resources :product1s do
     collection do
       get "out_of_stock"
@@ -28,7 +38,6 @@ Rails.application.routes.draw do
       get "blacklisted_customers"
     end
   end
-
 
   resources :products
   resources :students

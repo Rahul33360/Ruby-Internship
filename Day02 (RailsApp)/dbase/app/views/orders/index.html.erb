@@ -1,0 +1,12 @@
+<div style="background-color: black; color: white; min-height: 100vh; margin: auto; padding: 20px;">
+
+    <%= link_to "Add New Order Details", new_order_path, style:"background-color: white; color:green; font-size:30px; margin-bottom:20px" %>
+    <br>
+
+    <% @orders.each do |order| %>
+        <%= render order %>
+        <%= link_to "Show", order %>
+        <%= link_to "Edit", edit_order_path(order) %>
+        <br><br>
+    <% end %>
+</div>

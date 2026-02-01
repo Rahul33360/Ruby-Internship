@@ -1,1 +1,1 @@
-Created mailer in customer1 and product1
+Created mailer in customer1 and product1 in Day2 application

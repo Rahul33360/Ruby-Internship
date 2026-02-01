@@ -1,0 +1,17 @@
+<div style="background-color: black; color: white; min-height: 100vh; margin: auto; padding: 20px;">
+    <div>
+        <strong>Details:</strong>
+        <%= @order.details %>
+    </div>
+
+    <div>
+        <strong>Order_Count:</strong>
+        <%= @order.order_count %>
+    </div>
+    <br>
+    <%= link_to "Edit Order Details", edit_order_path %>
+    <br>
+    <%= link_to "Back to all Order Details", orders_path %>
+    <br>
+    <%= button_to "Delete", @order, method: :delete %>
+</div>

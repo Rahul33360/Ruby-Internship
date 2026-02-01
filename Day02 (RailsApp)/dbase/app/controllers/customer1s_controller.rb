@@ -35,7 +35,7 @@ class Customer1sController < ApplicationController
     @customer1 = Customer1.new(customer1_params)
 
     respond_to do |format|
-                         # Day 15
+                        # Day 15
       if @customer1.save # trigger a email after saving the the data
         format.html { redirect_to @customer1, notice: "Customer1 was successfully created." }
         # Day 15
