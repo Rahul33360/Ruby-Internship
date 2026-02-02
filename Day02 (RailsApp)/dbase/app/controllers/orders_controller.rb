@@ -42,7 +42,7 @@ class OrdersController < ApplicationController
             redirect_to @order, notice: "Order created successfully" # redirect to show id page
             # redirect_to orders_path # for redirecting to index page
         else
-            render :new, status: :unprocessable_entity
+            render :new, notice: "something went wrong!"
         end
     end
 

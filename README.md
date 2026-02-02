@@ -1013,3 +1013,177 @@ rails active_storage:installing
 
 ### For multiple data adding/selection using html.erb add -> multiple:true (in .html.erb file)
 ---
+
+**Day 15 (Action_Mailer)**
+
+## Tasks : create Order table in same application
+* Step 1 generate model with col names(details:string, count:int)
+* Step 2 generate controller
+* Step 3 run db:migrate
+* Step 4 empty controller and view files will be generated we need to add code to all the classes now Perform CRUD 
+
+## Concepts and commands
+
+### Rails Action Mailer with Letter Opener – Step‑by‑Step Notes# Rails Action Mailer with Letter Opener – Step-by-Step Notes
+
+These are the steps followed to send emails in Rails using Action Mailer and preview them in the browser using Letter Opener.
+
+---
+
+## Concepts
+
+### Protocols(rules) for mails - SMTP, POP, IMAP
+### Restapi is capable of handling all type of data like JSON, XML, Has,etc.  
+
+### What is Action Mailer?
+* Action Mailer is used to send emails from a Rails application.This class is present in rails since begining.
+* It is commonly used for:
+  * Welcome emails
+  * Password reset emails
+  * Notifications
+* In development mode, we use **Letter Opener** to preview emails in the browser instead of sending real emails.
+
+## Steps
+
+### Step 1: Generate Mailer
+
+```ruby
+command : rails generate mailer CustomerMailer
+```
+
+* This creates:
+  1) `app/mailers/customer_mailer.rb`
+  2) `app/views/customer_mailer/` (folder for email templates)
+
+### Step 2: Enable Action Mailer
+
+* Open → `config/application.rb`
+* Add below line:
+
+```ruby
+require "action_mailer/railtie"
+```
+
+* This loads Rails mailer functionality into your application.
+
+### Step 3: Configure Development Environment
+
+* Open → `config/environments/development.rb`
+* Add:
+
+```ruby
+config.action_mailer.perform_deliveries = true
+config.action_mailer.delivery_method = :letter_opener
+```
+
+* Meaning:
+
+  * `perform_deliveries = true`
+    → Allows sending emails  
+
+  * `delivery_method = :letter_opener`
+    → Opens emails in browser instead of sending real emails  
+
+### Step 4: Write Mailer Logic
+
+* Open → `app/mailers/customer_mailer.rb`
+
+```ruby
+class CustomerMailer < ApplicationMailer
+  def welcome_email
+    @customer = params[:customer]
+    mail(to: @customer.email, subject: "Welcome to my app...")
+  end
+end
+```
+
+* What happens here:
+
+  * Receives customer data using `params`
+  * Sends email to customer's email address
+  * Sets subject line
+
+### Step 5: Create Mailer View (Email Template)
+
+Create file:
+
+`app/views/customer_mailer/welcome_email.html.erb`
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Welcome to New Connection App, <%= @customer.name %>!</h1>
+    <p>
+      You have successfully joined this community
+      your email is: <%= @customer.email %>.<br>
+    </p>
+
+    <p>Thanks for joining and have a fun-tastic day!</p>
+  </body>
+</html>
+```
+
+* This is the actual email template that users will receive.
+
+### Step 6: Trigger Email from Controller
+
+* Open → `customers_controller.rb`
+* Add:
+
+```ruby
+CustomerMailer.with(customer: @customer).welcome_email.deliver
+```
+
+* When customer is created → welcome email is sent automatically.
+
+### Step 7: Add Required Gems
+
+In `Gemfile`:
+
+```ruby
+gem "letter_opener", group: :development
+gem "letter_opener_web", group: :development
+```
+
+Then run:
+
+```ruby
+bundle install
+```
+
+* These gems:
+  * Prevent real email sending in development
+  * Open emails in browser
+
+### Step 8: Add Route for Email Preview
+
+In `config/routes.rb`:
+
+```ruby
+if Rails.env.development?
+  mount LetterOpenerWeb::Engine, at: "/letter_opener"
+end
+```
+
+Now visit in browser:
+
+```ruby
+http://localhost:3000/letter_opener
+```
+
+* All sent emails will be visible here.
+
+## Flow Summary
+
+1) Generate Mailer  
+2) Enable Action Mailer  
+3) Configure Development Settings  
+4) Write Mailer Method  
+5) Create Email Template  
+6) Trigger from Controller  
+7) Add Gems  
+8) Preview Emails in Browser  
