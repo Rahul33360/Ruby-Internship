@@ -1024,16 +1024,10 @@ rails active_storage:installing
 
 ## Concepts and commands
 
-### Rails Action Mailer with Letter Opener – Step‑by‑Step Notes# Rails Action Mailer with Letter Opener – Step-by-Step Notes
+### Rails Action Mailer with Letter Opener – Step‑by‑Step Notes# Rails Action Mailer with Letter Opener – Step-by-Step
 
-These are the steps followed to send emails in Rails using Action Mailer and preview them in the browser using Letter Opener.
-
----
-
-## Concepts
-
-### Protocols(rules) for mails - SMTP, POP, IMAP
-### Restapi is capable of handling all type of data like JSON, XML, Has,etc.  
+#### Protocols(rules) for mails - SMTP, POP, IMAP
+#### Restapi is capable of handling all type of data like JSON, XML, Has,etc.  
 
 ### What is Action Mailer?
 * Action Mailer is used to send emails from a Rails application.This class is present in rails since begining.
@@ -1187,3 +1181,140 @@ http://localhost:3000/letter_opener
 6) Trigger from Controller  
 7) Add Gems  
 8) Preview Emails in Browser  
+
+
+# Day 16 – Action Mailbox (Receiving Emails in Rails)
+
+## Concepts
+
+### What is Action Mailbox?
+* Action Mailbox is used to receive incoming emails in a Rails application.
+* It routes emails to mailboxes.
+* It processes email content inside the application.
+* Useful for:
+  * Support systems
+  * Contact forms via email
+  * Automated email-based workflows
+
+## Tasks : No Task
+
+### 1) Install Action Mailbox
+
+```ruby
+command : rails action_mailbox:install
+```
+
+* Generated files:
+
+  1) `app/mailboxes/application_mailbox.rb`  
+  2) `db/migrate/XXXXX_create_action_mailbox_tables.action_mailbox.rb`
+
+### 2) Run Database Migration
+
+```ruby
+command : rails db:migrate
+```
+
+* Table created:
+
+  * `action_mailbox_inbound_emails`
+
+* Purpose:
+  * Stores all incoming emails.
+  * Tracks status of received emails.
+
+### 3) Production Configuration
+
+* Open → `config/environments/production.rb`
+
+Add:
+
+```ruby
+config.action_mailbox.ingress = :any_ingress_server
+```
+
+* Default ingress is:
+
+```ruby
+:relay
+```
+
+* Ingress defines how emails enter your Rails application.
+
+### 4) Application Mailbox Routing
+
+* Open → `app/mailboxes/application_mailbox.rb`
+
+```ruby
+class ApplicationMailbox < ActionMailbox::Base
+  routing all: :support
+end
+```
+
+* Meaning:
+
+  * All incoming emails are routed to `SupportMailbox`.
+
+### 5) Generate Support Mailbox
+
+```ruby
+command : rails generate mailbox support
+```
+
+* Generated files:
+
+  1) `app/mailboxes/support_mailbox.rb`  
+  2) `test/mailboxes/support_mailbox_test.rb`
+
+### 6) Support Mailbox Logic
+
+* Open → `app/mailboxes/support_mailbox.rb`
+
+```ruby
+class SupportMailbox < ApplicationMailbox
+  def process
+    # this action is for processing emails 
+    # Mail.decoded # for fetching mail body
+    # Mail.from    # f\from whom mail was sent
+    # Mail.subject # give the subject
+  end
+end
+```
+
+* The `process` method:
+  * Handles incoming email data.
+  * Allows you to store email content.
+  * Can trigger business logic.
+
+### 7) View Incoming Emails (Development Mode)
+
+Start server:
+
+```ruby
+rails s
+```
+
+Open in browser (at this link incoming Emails will be Present):
+
+```
+http://127.0.0.1:3000/rails/conductor/action_mailbox/inbound_emails
+```
+
+You can:
+
+* View inbound emails  
+* Create test emails using form or raw source  
+* Check message ID  
+* Check delivery status  
+
+## Flow Summary
+
+1) Install Action Mailbox  
+2) Run Migration  
+3) Configure Ingress  
+4) Set Routing in ApplicationMailbox  
+5) Generate Custom Mailbox  
+6) Define process Method  
+7) View & Test Incoming Emails  
+
+---
