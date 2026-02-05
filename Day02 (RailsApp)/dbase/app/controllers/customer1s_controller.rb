@@ -6,7 +6,13 @@ class Customer1sController < ApplicationController
     # list_of_customers = [1,2,3]
     # @customer1s = Customer1.blacklisted_customers(list_of_customers)
     @customer1s = Customer1.all
+
+    # Day17
     # @customer1s = Customer1.unique_email
+    # @customer1s = Customer1.find_by(name: "rhaul")
+    # @customer1s = Customer1.where(name: "rhaul")
+    # raise @customer1s.inspect
+    
   end
 
   def blacklisted_customers

@@ -1318,3 +1318,265 @@ You can:
 7) View & Test Incoming Emails  
 
 ---
+
+# Day 17 – Namespaced Models & Active Record Methods
+
+
+
+## 1) Creating Namespaced Model (Under a Model)
+
+### Generate Migration for Namespaced Model
+
+```ruby
+command : rails generate migration Modelname::NamedscopeModelname
+```
+
+Example:
+
+```ruby
+rails generate migration Product::Category
+```
+
+Then run:
+
+```ruby
+rails db:migrate
+```
+
+This creates a namespaced structure like:
+
+```
+app/models/product/category.rb
+```
+
+
+
+## 2) Adding Column to Namespaced Model
+
+```ruby
+command : rails generate migration AddColumnToModel_Name column:datatype
+```
+
+Example:
+
+```ruby
+rails generate migration AddColumnCategory_nameToProductCategory category_name:string
+```
+
+Then:
+
+```ruby
+rails db:migrate
+```
+
+
+
+# Active Record Methods
+
+### Insert Methods
+
+```ruby
+Model_name.insert({column: value, column: value})
+
+Model_name.insert({})
+
+Model_name.insert_all([{},{},{},...])
+```
+
+* `insert` → inserts single record (without validations/callbacks)
+* `insert_all` → inserts multiple records at once
+
+
+
+### Find Methods
+
+```ruby
+Model.find(id)
+```
+* Returns record if present  
+* Raises exception if not found  
+
+```ruby
+Model.find_by(id: id)
+```
+* Returns record if present  
+* Returns `nil` if not found  
+
+
+
+### Record Position Methods
+
+```ruby
+Model.first
+Model.second
+Model.third
+Model.fourth
+Model.fifth
+Model.last
+```
+
+Used to fetch records based on position.
+
+# Summary
+
+## Day 17
+* Namespaced Models
+* Adding columns to namespaced tables
+* Active Record insert & find methods
+
+---
+
+# Day 18 – Active Support & Core Extensions
+
+
+## 1) Core Extensions
+
+Rails provides extra helper methods via **Active Support**.
+
+These methods are not part of pure Ruby — they are available only inside Rails.
+
+
+## Date & Time Calculations
+
+### Current Time
+
+```ruby
+Time.zone.now
+```
+
+Example:
+
+```ruby
+a = Time.zone.now
+a + 2.day
+a + 3.week
+a + 3.month
+a + 2.hour
+a + 2.days
+```
+
+Rails automatically understands:
+
+* `n.day`
+* `n.days`
+* `n.week`
+* `n.month`
+* `n.hour`
+
+Example Output:
+
+```
+2026-02-04 05:42:22 UTC
+a + 2.day  => 2026-02-06
+a + 3.week => 2026-02-25
+a + 3.month => 2026-05-04
+```
+
+
+## Date Methods
+
+```ruby
+Date.today
+Date.new(year, month, day)
+```
+
+Beginning & End Methods:
+
+```ruby
+Date.today.beginning_of_day
+Date.today.beginning_of_week
+Date.today.beginning_of_month
+Date.today.beginning_of_year
+```
+
+```ruby
+Date.today.end_of_day
+Date.today.end_of_week
+Date.today.end_of_month
+Date.today.end_of_year
+```
+
+
+## 2) Instrumentation (Pub/Sub)
+
+* Rails supports Publish-Subscribe pattern.
+* Used internally for logging, monitoring, performance tracking.
+
+
+## 3) ActiveSupport::Concern
+
+* Used to organize shared modules cleanly.
+* Helps in writing reusable logic.
+* Avoids manual `included do` boilerplate issues.
+
+
+## 4) Multi-language Translations (I18n)
+
+Rails uses `I18n` module for translations.
+
+Configuration file:
+
+```
+config/locales/en.yml
+```
+
+I18n stores translation keys and values.
+
+Example:
+
+```ruby
+I18n.t("welcome.message")
+```
+
+
+## 5) Active Support Utility Methods
+
+These methods work on Strings, Arrays, Hashes, Objects.
+
+### Blank / Present / Nil / Empty
+
+```ruby
+" ".blank?    # true
+[].blank?     # true
+{}.blank?     # true
+```
+
+```ruby
+" ".nil?      # false
+[].nil?       # false
+{}.nil?       # false
+```
+
+```ruby
+" ".present?  # false
+[].present?   # false
+{}.present?   # false
+```
+
+```ruby
+"".empty?     # true
+[].empty?     # true
+{}.empty?     # true
+```
+
+### Difference Between Them
+
+| Method | Meaning |
+|--------|---------|
+| blank? | true if empty or whitespace |
+| present? | opposite of blank? |
+| nil? | checks if object is nil |
+| empty? | checks if collection/string length is zero |
+
+
+# Summary
+
+## Day 18
+* Active Support core extensions
+* Date & Time calculations
+* Instrumentation
+* ActiveSupport::Concern
+* I18n translations
+* blank?, present?, empty?, nil? methods
+
+---

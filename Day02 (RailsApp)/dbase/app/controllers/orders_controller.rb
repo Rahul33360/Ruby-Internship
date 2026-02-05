@@ -3,6 +3,8 @@ class OrdersController < ApplicationController
     def index
         # raise params.inspect
         @orders = Order.all
+        # # @orders = Order.find(1)
+        # @order = Order.find_by(Order_Count: 42)
     end
 
     def show
