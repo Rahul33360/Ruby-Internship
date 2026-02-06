@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   # Day15 required for Action_Mailer
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
@@ -21,7 +22,7 @@ Rails.application.routes.draw do
   # resources :product1s, only: [:new, :edit]
 
   #  resources :product1s, except: [:show] do
-  #   collection do
+  #   collection do 
   #     get "out_of_stock"
   #   end
   # end

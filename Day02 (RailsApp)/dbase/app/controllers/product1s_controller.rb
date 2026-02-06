@@ -3,9 +3,9 @@ class Product1sController < ApplicationController
 
   # GET /product1s or /product1s.json
   def index
-    # @product1s = Product1.all
+    @product1s = Product1.all
     # Day17
-    @product1s = Product1::Category.all
+    # @product1s = Product1::Category.all
     # raise @product1s.inspect
     # @product1s = Product1.out_of_stock
   end

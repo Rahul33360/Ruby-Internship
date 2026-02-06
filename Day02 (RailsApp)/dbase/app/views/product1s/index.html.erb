@@ -1,2 +1,75 @@
-<%= @product1.name%></td>
-<%= @product1.id%></td>
+
+<div class="page product1s-index">
+  <%= link_to "Add New Product", new_product1_path, class:"destroy-form no-underline"%>
+  <% content_for :title, "BahutSaraProducts" %>
+  <header class="page-header">
+  <div style="margin-left: auto; margin-right: auto; color: #10d35e; font-size: 25px; font-weight:800">Product Table</div>
+  </header>
+
+  <section class="page">
+  <table class="table" border="1" cellpadding="5" cellspacing="0">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Discription</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Is_Active</th>
+        <th>Feedback</th>
+        <th>Product Pic</th>
+        <th>invoice</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% # @product1s =  @product1s.out_of_stock %>
+      <% #= var="rah"; var.upcase%>
+      <% @product1s.each do |product1| %>
+        <tr>
+          <td> <%= product1.name%></td>
+          <td> <%= product1.descripition%> </td>
+          <td> <%= product1.price%></td>
+          <td> <%= product1.stock%></td>
+          <td>
+            <% if product1.is_active %>
+              <span class="status status-true"></span>
+            <% else %>
+              <span class="status status-false"></span>
+            <% end %>
+          </td>
+          <td>
+            <p>
+              <%= product1.feedback %>
+            </p>
+          </td>
+          <td>
+            <div>
+              <% if product1.product_pic.attached? %>
+                <% product1.product_pic.each do |pic| %>
+                <%= image_tag pic, style:'width: 100%; height:200%;' %>
+                <% end %>
+              <% end %>
+            </div>
+          </td>
+
+          <td>
+            <% if product1.invoice.attached? %>
+              <%= link_to product1.invoice.filename.to_s,
+                          url_for(product1.invoice),
+                          target: "_blank" %>
+            <% else %>
+              No invoice
+            <% end %>
+          </td>
+
+
+          <td> <%= link_to "Show", product1 %> </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  </section>
+</div>
+
+<%# = @product1.name%></td>
+<%# = @product1.id%></td>

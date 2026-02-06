@@ -22,7 +22,7 @@
 ######  username: postgres    
 ######  password: YOUR_PASSWORD     
 
-#### Then 
+#### Then try running Your app (it should run without error)
 
 ## Folder Structuring
 #### app -> all files of MVC 

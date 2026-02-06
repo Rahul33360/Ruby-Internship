@@ -1,7 +1,9 @@
 class Product1 < ApplicationRecord
 
-    has_one_attached:invoice
+    # Day19
+    has_many :orders
 
+    has_one_attached:invoice
     has_many_attached:product_pic
 
     # has_one_attached:product_pic
