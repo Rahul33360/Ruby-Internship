@@ -1,7 +1,13 @@
 class Product1 < ApplicationRecord
 
     # Day19
-    has_many :orders
+    has_many :orders, dependent: :destroy
+
+    # Day20
+    has_and_belongs_to_many :tags
+    has_many :offers, through: :product1s_offers
+
+
 
     has_one_attached:invoice
     has_many_attached:product_pic

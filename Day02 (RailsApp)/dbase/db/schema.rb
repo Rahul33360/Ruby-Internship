@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_05_111137) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_06_063707) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -75,6 +75,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_05_111137) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "offers", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "discount"
+    t.string "offer_name"
+    t.boolean "status"
+    t.datetime "updated_at", null: false
+  end
+
   create_table "orders", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "details"
@@ -101,6 +109,27 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_05_111137) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "product1s_offers", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "offer_id", null: false
+    t.bigint "product1_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["offer_id"], name: "index_product1s_offers_on_offer_id"
+    t.index ["product1_id"], name: "index_product1s_offers_on_product1_id"
+  end
+
+  create_table "product1s_tags", id: false, force: :cascade do |t|
+    t.bigint "product1_id", null: false
+    t.bigint "tag_id", null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "descripition"
+    t.string "name"
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email"
@@ -120,5 +149,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_05_111137) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "orders", "product1s"
+  add_foreign_key "product1s_offers", "offers"
+  add_foreign_key "product1s_offers", "product1s"
   add_foreign_key "vendors", "users"
 end

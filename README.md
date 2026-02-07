@@ -758,7 +758,7 @@ scope :whitelisted_product1s, -> { where("id IN (?)", [1, 2, 3]) }
 Fetch distinct email values from records.
 
 ```ruby
-scope :unique_emails, -> { where(email: "sudha@gmail.com").select(:email).distinct }
+scope :unique_emails, -> { where(email: "rahul@gmail.com").select(:email).distinct }
 ```
 
 ---
@@ -1569,7 +1569,40 @@ These methods work on Strings, Arrays, Hashes, Objects.
 | empty? | checks if collection/string length is zero |
 
 
-# Summary
+# N+1 Query Problem
+
+## What is the N+1 Query Problem?
+
+The N+1 query problem occurs when:
+
+* One query fetches parent records  
+* Additional queries are fired for each child record  
+* This usually happens due to lazy loading  
+
+
+
+## Example (Bad Practice)
+
+```ruby
+User.all.each do |user|
+  puts user.posts.count
+end
+```
+
+Causes 1 query for users + N queries for posts
+
+
+
+## Solution: Eager Loading using includes
+
+```ruby
+User.includes(:posts).each do |user|
+  puts user.posts.count
+end
+```
+
+Fetches all data using minimum queries
+
 
 ## Day 18
 * Active Support core extensions
@@ -1578,5 +1611,721 @@ These methods work on Strings, Arrays, Hashes, Objects.
 * ActiveSupport::Concern
 * I18n translations
 * blank?, present?, empty?, nil? methods
+* N+1 problem
+* 1+1 solution 
+
+---
+
+# Day 19 – Associations in Ruby on Rails
+
+Associations in Rails define relationships between models (tables).  
+They help ActiveRecord understand how records are connected and allow easy data access without writing complex SQL queries.
+
+
+### Example
+
+A User can have:
+
+* one Vendor  
+* many Posts  
+* many Orders  
+
+
+## Types of Associations (Sql)
+
+There are 4 types of relationships between database tables:
+
+
+### 1. One-to-One
+
+One record in table A is linked to one record in table B  
+
+Example:  
+User → Profile  
+
+
+### 2. One-to-Many
+
+One record in table A is linked to many records in table B  
+
+Example:  
+User → Posts  
+
+
+### 3. Many-to-One
+
+Many records in table A belong to one record in table B  
+
+Example:  
+Posts → User  
+
+This is the reverse of one-to-many and is implemented using belongs_to.
+
+
+### 4. Many-to-Many
+
+Many records in table A are linked to many records in table B  
+
+Example:  
+Students ↔ Courses  
+
+## Ways to Define Associations in Rails
+
+Rails provides 6 ways to achieve association:
+
+```
+has_one
+has_many
+belongs_to
+has_one :through
+has_many :through
+has_and_belongs_to_many
+```
+
+Apart from that Rails provides one separate type of association also as a polymorphic association.
+
+
+## Polymorphic Association
+
+### What is a Polymorphic Association?
+
+A polymorphic association allows a single model to belong to multiple models.
+One table acts as a child for multiple parent tables.
+
+
+### Required Columns
+
+A polymorphic table must contain two columns:
+
+* record_type – stores the parent model name  
+* record_id – stores the parent model’s primary key  
+
+
+### Example
+
+Active Storage uses polymorphic associations:
+
+* A file can belong to a User  
+* A Product  
+* A Post  
+
+
+## Creating Associations Using Generate Commands (New Tables)
+
+### Step 1️ Create Parent Model
+
+```ruby
+rails generate model User name:string email:string
+rails db:migrate
+```
+
+
+### Step 2️ Create Child Model with Reference
+
+```ruby
+rails generate model Vendor name:string location:string user:references
+rails db:migrate
+```
+
+
+### What user:references Does Automatically
+
+* Adds a user_id column  
+* Creates a foreign key constraint  
+* Builds SQL-level association  
+
+
+## SQL-Level Associations (Database Side)
+
+After running migrations, Rails generates SQL relations.
+
+
+### User Migration
+
+```ruby
+class CreateUsers < ActiveRecord::Migration[8.1]
+  def change
+    create_table :users do |t|
+      t.string :name
+      t.string :email
+
+      t.timestamps
+    end
+  end
+end
+```
+
+
+### Vendor Migration
+
+```ruby
+class CreateVendors < ActiveRecord::Migration[8.1]
+  def change
+    create_table :vendors do |t|
+      t.string :name
+      t.string :location
+      t.references :user, null: false, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end
+```
+
+
+### Important Note (Corrected Explanation)
+
+If you try to delete the parent table (users) before the child table (vendors), you will get a foreign key constraint error.
+
+Always delete child tables first, then parent tables  
+Or use `dependent: :destroy` in Rails models.
+
+
+## Rails-Level Associations (Model Side)
+
+After database setup, we must define associations inside models so Rails understands the relationship.
+
+
+### Vendor Model
+
+```ruby
+class Vendor < ApplicationRecord
+  belongs_to :user
+end
+```
+
+Meaning:
+
+* vendors table contains user_id  
+* Each vendor belongs to one user  
+* belongs_to is always written in singular  
+
+
+### User Model
+
+```ruby
+class User < ApplicationRecord
+  has_one :vendor
+end
+```
+
+Meaning:
+
+* One user can have only one vendor  
+* User table does not store the foreign key  
+
+Note: Using has_one :vendor (singular) tells Rails that this is a one-to-one relationship.
+
+
+## How Rails Associations Help
+
+With proper associations, Rails provides:
+
+### Easy Data Access
+
+```ruby
+user.vendor
+vendor.user
+```
+
+### Additional Benefits
+
+* Automatic validations  
+* Cleaner and readable code  
+* Powerful query helpers  
+* Less SQL writing  
+
+
+## Creating Associations for an Existing Table
+
+### Generate Migration to Add Foreign Key
+
+```ruby
+rails generate migration AddProductToOrder product:references
+```
+
+
+### Generated Migration File
+
+```ruby
+class AddProductToOrders < ActiveRecord::Migration[8.1]
+  def change
+    add_reference :orders, :product, null: true, foreign_key: true
+  end
+end
+```
+
+
+### What this does:
+
+* Adds product_id column to orders table  
+* Creates SQL-level association  
+
+
+## Rails-Level Association for Existing Tables
+
+### Product Model
+
+```ruby
+class Product < ApplicationRecord
+  has_many :orders
+end
+```
+
+
+### Order Model
+
+```ruby
+class Order < ApplicationRecord
+  belongs_to :product
+end
+```
+
+Note: when using has_many :orders (we shall put plural to tell Rails, this is one-to-many relationship)
+
+## Useful Rails Association Methods
+
+```ruby
+User.create
+User.insert_all([{},{},{}])   (for inserting many records at a time.)
+
+User.last.vendor.create
+```
+
+### Explanation
+
+User.last.vendor.create
+
+* Automatically sets user_id  
+* Creates a vendor linked to User.last  
+
+
+## Foreign Key Constraints in Rails (PostgreSQL)
+
+Foreign key errors can be occurs in a Rails application and the reasons why? it occured.
+
+### Task 1. Dropping a Parent Table Before Child Table
+
+#### Scenario
+
+When you attempt to drop a parent table while a child table still references it via a foreign key.
+
+#### Command Example
+
+```sql
+DROP TABLE test1s;
+```
+
+
+#### Error
+
+```
+ERROR: cannot drop table test1s because other objects depend on it
+DETAIL: constraint fk_rails_7b882ba334 on table test2s depends on table test1s
+HINT: Use DROP ... CASCADE to drop the dependent objects too.
+```
+
+
+#### Explanation
+
+* test2s has a foreign key (test1_id) referencing test1s  
+* PostgreSQL prevents deleting the parent table to maintain referential integrity  
+
+
+#### Correct Approaches
+
+Option 1: Drop child table first
+
+```ruby
+rails generate migration DropTest2s
+rails db:migrate
+```
+
+Option 2: Use CASCADE (Not recommended in Rails)
+
+```sql
+DROP TABLE test1s CASCADE;
+```
+
+This will also delete dependent constraints and objects.
+
+
+### Task 2. Inserting an Invalid Foreign Key into Child Table
+
+#### Scenario
+
+You insert a foreign key value into a child table that does not exist in the parent table.
+
+
+#### Command Example
+
+```ruby
+Test2.insert({ name: "Rahul", test1_id: 99 })
+```
+
+
+#### Error
+
+```
+PG::ForeignKeyViolation: ERROR: insert or update on table "test2s"
+violates foreign key constraint "fk_rails_7b882ba334"
+DETAIL: Key (test1_id)=(99) is not present in table "test1s".
+```
+
+
+### Explanation
+
+* test1_id = 99 does not exist in test1s  
+* PostgreSQL blocks the insert to protect data integrity  
+
+
+### Correct Solution
+
+Ensure the parent record exists before inserting:
+
+```ruby
+Test1.create(id: 99, name: "parent_record")
+Test2.create(name: "Rahul", test1_id: 99)
+```
+
+
+# After the Task (What we got Issues and Ways to resolve it)
+
+## Task 1: Create Tables with Relationship and Verify Associations
+
+(In this task, we created two tables with a relationship and verified the association at both SQL level and Rails level)
+
+### Steps to be followed:
+
+* Created two tables with a foreign key relationship  
+* Verified foreign key constraints at SQL (database) level  
+* Checked behavior before adding Rails associations  
+* Added Rails-level associations (has_many, belongs_to)  
+* Verified behavior after adding Rails associations  
+
+### Observation:
+
+* At SQL level, foreign key ensures data integrity  
+* At Rails level, associations make data access easier and readable  
+
+
+## Task 2: Add Relationship to Existing Tables with Records
+
+(In this task, we tried to create a relationship between already existing tables that contain data.)
+
+### Problems I got:
+
+* Migration failed due to existing records  
+* Foreign key constraint caused an error  
+
+### Solution for this:
+
+* Handled the error by providing a default value or allowing null values  
+* Successfully applied the relationship without data loss  
+
+SQL-level association → ensures data consistency  
+Rails-level association → improves developer experience  
+Existing data needs special handling while adding relationships  
+
+---
+
+# Day 20 - Many-to-Many Association using HABTM (Product1 & Tag table)
+
+Rails supports many-to-many relationships in two standard ways:
+
+5. has_many :through  
+6. has_and_belongs_to_many (HABTM)
+
+
+# 5. has_many :through
+
+This is the recommended approach for most real-world applications.
+
+## Why use has_many :through?
+
+* Supports extra columns in the join table  
+* Allows validations, callbacks, and scopes  
+* Business logic can live in the join model  
+* More flexible and scalable  
+
+
+## Example: Product ↔ Offer via ProductOffer
+
+### Step 1: Create Offer Model
+
+```ruby
+rails generate model Offer name:string description:string discount:string
+rails db:migrate
+```
+
+
+### Step 2: Create Join Model
+
+```ruby
+rails generate model ProductOffer product:references offer:references
+rails db:migrate
+```
+
+
+## Generated migration:
+
+```ruby
+class CreateProductOffers < ActiveRecord::Migration[8.1]
+  def change
+    create_table :product_offers do |t|
+      t.references :product, null: false, foreign_key: true
+      t.references :offer, null: false, foreign_key: true
+      t.timestamps
+    end
+  end
+end
+```
+
+
+## Database table:
+
+```ruby
+create_table "product_offers" do |t|
+  t.bigint "product_id", null: false
+  t.bigint "offer_id", null: false
+  t.datetime "created_at", null: false
+  t.datetime "updated_at", null: false
+end
+```
+
+
+## Define Associations
+
+### Product model
+
+```ruby
+class Product < ApplicationRecord
+  has_many :product_offers
+  has_many :offers, through: :product_offers
+end
+```
+
+
+### Offer model
+
+```ruby
+class Offer < ApplicationRecord
+  has_many :product_offers
+  has_many :products, through: :product_offers
+end
+```
+
+
+### Join model
+
+```ruby
+class ProductOffer < ApplicationRecord
+  belongs_to :product
+  belongs_to :offer
+end
+```
+
+
+## HABTM vs has_many :through
+
+### Similarities
+
+| Feature | has_many :through | has_and_belongs_to_many |
+|----------|------------------|--------------------------|
+| Relationship Type | Many-to-many | Many-to-many |
+| Foreign Keys | Yes | Yes |
+| Join Table Required | Yes | Yes |
+| Data Access | Bidirectional | Bidirectional |
+
+
+### Differences
+
+| Feature | has_many :through | has_and_belongs_to_many |
+|----------|------------------|--------------------------|
+| Join Model | Required | Not required |
+| Join Table Primary Key | Has id | No primary key |
+| Extra Attributes in Join Table | Supported | Not supported |
+| Validations | Supported | Not supported |
+| Callbacks | Supported | Not supported |
+| Business Logic | Can be added | Cannot be added |
+| Flexibility | High | Low |
+
+
+## dependent: :destroy
+
+### What is dependent: :destroy?
+
+When a parent record is deleted, Rails automatically deletes all associated child records.
+
+
+### Why use it?
+
+* Keeps the database clean  
+* Prevents orphan records  
+* Maintains data consistency  
+* Avoids bugs and invalid references  
+
+
+### Without dependent: :destroy
+
+* Parent is deleted  
+* Child records remain  
+* Child records point to non-existent parent  
+* Causes errors and confusing data  
+
+
+### Example: One-to-One Association
+
+#### User model
+
+```ruby
+class User < ApplicationRecord
+  has_one :vendor, dependent: :destroy
+end
+```
+
+
+### Vendor model
+
+```ruby
+class Vendor < ApplicationRecord
+  belongs_to :user
+end
+```
+
+
+### Deleting User
+
+```ruby
+User.find(4).destroy
+```
+
+
+### What Rails Does Internally
+
+* Finds vendor associated with user  
+* Deletes vendor first  
+* Deletes user record  
+
+
+### 6. has_and_belongs_to_many (HABTM)
+
+This is the simplest way to create a many-to-many relationship.
+
+
+### Key Characteristics
+
+* Stores only foreign keys  
+* No separate model for the join table  
+* Join table exists only to connect two models  
+* No validations, callbacks, or extra attributes  
+* Faster to set up, but less flexible  
+
+
+### Example: Product ↔ Tag
+
+#### Step 1: Create Tag Model
+
+```ruby
+rails g model Tag name:string description:string
+rails db:migrate
+```
+
+
+### Generated migration:
+
+```ruby
+class CreateTags < ActiveRecord::Migration[8.1]
+  def change
+    create_table :tags do |t|
+      t.string :name
+      t.string :description
+      t.timestamps
+    end
+  end
+end
+```
+
+
+#### Step 2: Create Join Table
+
+```ruby
+rails generate migration CreateJoinTableProductsTags products tags
+rails db:migrate
+```
+
+
+### Generated migration:
+
+```ruby
+class CreateJoinTableProductsTags < ActiveRecord::Migration[8.1]
+  def change
+    create_join_table :products, :tags do |t|
+      # t.index [:product_id, :tag_id]
+      # t.index [:tag_id, :product_id]
+    end
+  end
+end
+```
+
+
+### Database table created:
+
+```
+products_tags
+--------------
+product_id | tag_id
+```
+
+
+## Step 3: Define Associations
+
+### Product model
+
+```ruby
+class Product < ApplicationRecord
+  has_and_belongs_to_many :tags
+end
+```
+
+
+### Tag model
+
+```ruby
+class Tag < ApplicationRecord
+  has_and_belongs_to_many :products
+end
+```
+
+
+## Inserting Data into Join Table (Automatic)
+
+```ruby
+p1 = Product.second
+p1.tags << Tag.last
+```
+
+
+### What happens internally?
+
+* Rails automatically inserts a row into products_tags  
+* No manual SQL insert required  
+
+```
+product_id | tag_id
+2          | 5
+```
+
+This means Product 2 is linked with Tag 5.
+
+
+## Fetching Associated Data
+
+```ruby
+p1.tags.map(&:name)
+p1.tags.pluck(:name)
+```
+
+These return all tag names related to the product.
 
 ---
